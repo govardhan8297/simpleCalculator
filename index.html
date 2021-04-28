@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Calculator</title>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?" />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?" />
     <style>
       * {
         margin: 0;
@@ -20,37 +20,82 @@
         min-height: 100vh;
         background-color: #091921;
       }
-      .calculator {
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(#e91ec3, #ffc107);
+        clip-path: circle(22% at 30% 20%);
+      }
+      body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(#ffffff, #da00ff);
+        clip-path: circle(20% at 70% 90%);
+      }
+      .container::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        z-index: 0;
+        filter: blur(15px);
+        z-index: -1;
+      }
+      .container {
         position: relative;
+        z-index: 10000000;
+        overflow: hidden;
+      }
+      .container .calculator {
         display: grid;
         cursor: pointer;
+        overflow: hidden;
       }
       .calculator .value {
         grid-column: span 4;
         height: 100px;
+        z-index: 1;
         text-align: right;
         border: none;
         outline: none;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         padding: 10px;
         font-size: 18px;
       }
       .calculator span {
         display: grid;
+        margin: 0;
+        padding: 0;
         width: 60px;
         height: 60px;
         color: #fff;
-        background: #0c2835;
         place-items: center;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 0.01px solid rgba(255, 255, 255, 0.1);
+        transition: 0.5s;
       }
       .calculator span:active {
-        background: #74ff3b;
-        color: #111;
+        background: red;
       }
+      .calculator span:hover {
+        color: black;
+        background: #fff;
+        transition: 0.5s;
+      }
+
       .calculator span.clear {
         grid-column: span 2;
         width: 120px;
         background: #ff3077;
+        transition: 1s;
       }
       .calculator span.plus {
         grid-row: span 2;
@@ -62,30 +107,32 @@
     </style>
   </head>
   <body>
-    <form class="calculator" name="calc">
-      <input type="text" class="value" name="text" readonly />
-      <span class="num clear" onclick="document.calc.text.value=''">C</span>
-      <span class="num" onclick="document.calc.text.value+='/'">/</span>
-      <span class="num" onclick="document.calc.text.value+='*'">*</span>
-      <span class="num" onclick="document.calc.text.value+='7'">7</span>
-      <span class="num" onclick="document.calc.text.value+='8'">8</span>
-      <span class="num" onclick="document.calc.text.value+='9'">9</span>
-      <span class="num" onclick="document.calc.text.value+='-'">-</span>
-      <span class="num" onclick="document.calc.text.value+='4'">4</span>
-      <span class="num" onclick="document.calc.text.value+='5'">5</span>
-      <span class="num" onclick="document.calc.text.value+='6'">6</span>
-      <span class="num plus" onclick="document.calc.text.value+='+'">+</span>
-      <span class="num" onclick="document.calc.text.value+='3'">3</span>
-      <span class="num" onclick="document.calc.text.value+='2'">2</span>
-      <span class="num" onclick="document.calc.text.value+='1'">1</span>
-      <span class="num" onclick="document.calc.text.value+='0'">0</span>
-      <span class="num" onclick="document.calc.text.value+='00'">00</span>
-      <span class="num" onclick="document.calc.text.value='.'">.</span>
-      <span
-        class="num equal"
-        onclick="document.calc.text.value=eval(calc.text.value)"
-        >=</span
-      >
-    </form>
+    <div class="container">
+      <form class="calculator" name="calc">
+        <input type="text" class="value" name="text" readonly />
+        <span class="num clear" onclick="document.calc.text.value=''">C</span>
+        <span class="num" onclick="document.calc.text.value+='/'">/</span>
+        <span class="num" onclick="document.calc.text.value+='*'">*</span>
+        <span class="num" onclick="document.calc.text.value+='7'">7</span>
+        <span class="num" onclick="document.calc.text.value+='8'">8</span>
+        <span class="num" onclick="document.calc.text.value+='9'">9</span>
+        <span class="num" onclick="document.calc.text.value+='-'">-</span>
+        <span class="num" onclick="document.calc.text.value+='4'">4</span>
+        <span class="num" onclick="document.calc.text.value+='5'">5</span>
+        <span class="num" onclick="document.calc.text.value+='6'">6</span>
+        <span class="num plus" onclick="document.calc.text.value+='+'">+</span>
+        <span class="num" onclick="document.calc.text.value+='3'">3</span>
+        <span class="num" onclick="document.calc.text.value+='2'">2</span>
+        <span class="num" onclick="document.calc.text.value+='1'">1</span>
+        <span class="num" onclick="document.calc.text.value+='0'">0</span>
+        <span class="num" onclick="document.calc.text.value+='00'">00</span>
+        <span class="num" onclick="document.calc.text.value+='.'">.</span>
+        <span
+          class="num equal"
+          onclick="document.calc.text.value=eval(calc.text.value)"
+          >=</span
+        >
+      </form>
+    </div>
   </body>
 </html>
